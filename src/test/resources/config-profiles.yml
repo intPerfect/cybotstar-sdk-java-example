@@ -1,0 +1,64 @@
+# 配置文件
+# 新格式：使用 cybotstar.agents.{name} 和 cybotstar.flows.{name} 结构
+# 包含三个默认配置：finance-agent (Agent), ir-flow 和 test-flow (Flow)
+
+cybotstar:
+  agents:
+    finance-agent:
+      credentials:
+        robot-key: 5Gi6hxiS%2BY2sdhddieQJ60ejigw%3D
+        robot-token: MTc2NjM5MDE5MDgxNQo4ZWtxSTg5RE85ODNpbTRrYlNKY2cwVUYwMzg9
+        username: zhiyuan.xi
+      http:
+        url: https://www.cybotstar.cn/openapi/v2/
+      websocket:
+        url: wss://www.cybotstar.cn/openapi/v2/ws/dialog/
+        timeout: 10000
+        max-retries: 3
+        retry-interval: 1000
+        auto-reconnect: true
+        heartbeat-interval: 30000
+      log:
+        log-level: info
+
+  flows:
+    ir-flow:
+      credentials:
+        robot-key: eUcVubcBHozrX2ew2BIj8X1wbqk%3D
+        robot-token: MTc2Mzk3ODkyNjAzNwpkcU5LbVNKVnZoM0pWaFE3U2lEY3U0aWQxc009
+        username: zhiyuan.xi
+      http:
+        url: https://www.cybotstar.cn/openapi/v2/
+      flow:
+        open-flow-trigger: direct
+        open-flow-uuid: d47e4dce-e07c-11f0-a7be-4a046c124f65
+      websocket:
+        url: wss://www.cybotstar.cn/openapi/v2/ws/dialog/
+        timeout: 10000
+        max-retries: 3
+        retry-interval: 1000
+        auto-reconnect: true
+        heartbeat-interval: 30000
+      log:
+        log-level: info
+
+    test-flow:
+      credentials:
+        robot-key: adkgId%2F3Xb8zmrbCwWd%2Bm4boVb4%3D
+        robot-token: MTc2NjgxNjYxNzgzNAo2K0ZCSTJQMzBGMTZlNUpFdkE1M1l2RllDZTg9
+        username: zhiyuan.xi
+      http:
+        url: https://www.cybotstar.cn/openapi/v2/
+      flow:
+        open-flow-trigger: direct
+        open-flow-uuid: f9e4dc16-e196-11f0-83fb-2a0c9eeaa681
+      websocket:
+        url: wss://www.cybotstar.cn/openapi/v2/ws/dialog/
+        timeout: 10000
+        max-retries: 3
+        retry-interval: 1000
+        auto-reconnect: true
+        heartbeat-interval: 30000
+      log:
+        log-level: info
+

@@ -1,0 +1,616 @@
+/* CybotStar Chat Styles - 精简优化版 */
+
+/* ========== 颜色变量系统 ========== */
+* {
+    /* 基础颜色 */
+    -fx-white: #FFFFFF;
+    -fx-black: #000000;
+    
+    /* 背景色 */
+    -fx-bg-primary: #FFFFFF;
+    -fx-bg-sidebar: #2D2D2D;
+    -fx-bg-dark: #1A1A1A;
+    -fx-bg-hover: #252525;
+    -fx-bg-button: #404040;
+    -fx-bg-button-hover: #505050;
+    -fx-bg-button-disabled: #2D2D2D;
+    -fx-bg-light: #F5F5F5;
+    -fx-bg-lighter: #EEEEEE;
+    
+    /* 文本颜色 */
+    -fx-text-primary: #FFFFFF;
+    -fx-text-secondary: #BBBBBB;
+    -fx-text-tertiary: #CCCCCC;
+    -fx-text-dark: #333333;
+    -fx-text-medium: #616161;
+    -fx-text-light: #757575;
+    -fx-text-hint: #9E9E9E;
+    -fx-text-disabled: #666666;
+    -fx-text-disabled-light: #BDBDBD;
+    
+    /* 边框颜色 */
+    -fx-border-light: #E0E0E0;
+    -fx-border-medium: #CCCCCC;
+    -fx-border-dark: #3D3D3D;
+    -fx-border-separator: #3D3D3D;
+    
+    /* 强调色 */
+    -fx-accent-green: #4CAF50;
+    -fx-accent-blue: #2196F3;
+    
+    /* 滚动条颜色 */
+    -fx-scrollbar-thumb: #CCCCCC;
+    -fx-scrollbar-thumb-hover: #999999;
+    -fx-scrollbar-thumb-pressed: #666666;
+    -fx-scrollbar-sidebar-thumb: #555555;
+    -fx-scrollbar-sidebar-thumb-hover: #666666;
+}
+
+/* ========== 全局样式 ========== */
+.root, BorderPane {
+    -fx-background-color: -fx-bg-primary;
+    -fx-font-family: "Microsoft YaHei UI", "Segoe UI", "PingFang SC", sans-serif;
+    -fx-clip: true;
+}
+
+/* 全局按钮圆角 */
+Button {
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+}
+
+/* ========== 左侧边栏 ========== */
+BorderPane .left,
+.root .left,
+BorderPane > .left,
+.root > .left {
+    -fx-background-color: -fx-bg-sidebar;
+    -fx-min-height: 100%;
+    -fx-pref-height: 100%;
+    -fx-max-height: 100%;
+    -fx-max-width: 450;
+    -fx-clip: true;
+}
+
+.sidebar {
+    -fx-background-color: -fx-bg-sidebar;
+    -fx-min-width: 390;
+    -fx-max-width: 450;
+    -fx-pref-width: 390;
+    -fx-padding: 16;
+    -fx-spacing: 12;
+    -fx-background-insets: 0;
+    -fx-clip: true;
+}
+
+.sidebar VBox,
+.sidebar HBox,
+.button-row > HBox {
+    -fx-background-color: transparent;
+}
+
+.left ScrollPane,
+.left ScrollPane .viewport,
+.left ScrollPane .content {
+    -fx-background-color: -fx-bg-sidebar;
+    -fx-border-color: transparent;
+}
+
+.left ScrollPane {
+    -fx-fit-to-width: true;
+    -fx-fit-to-height: true;
+    -fx-min-height: 100%;
+    -fx-pref-height: 100%;
+    -fx-max-height: 100%;
+    -fx-clip: true;
+}
+
+.left ScrollPane .viewport {
+    -fx-min-height: 100%;
+    -fx-pref-height: 100%;
+    -fx-max-height: 100%;
+}
+
+.sidebar-header {
+    -fx-padding: 0 0 20 0;
+    -fx-background-color: transparent;
+}
+
+.sidebar-header .label,
+.sidebar-title {
+    -fx-text-fill: -fx-text-primary;
+}
+
+.sidebar-title {
+    -fx-font-size: 20;
+    -fx-font-weight: 700;
+}
+
+/* ========== 调试信息区域 ========== */
+.debug-section,
+.status-row,
+.button-row,
+.debug-item,
+.param-item,
+.param-row {
+    -fx-background-color: transparent;
+}
+
+.debug-section {
+    -fx-spacing: 8;
+}
+
+.debug-section-title {
+    -fx-text-fill: -fx-text-secondary;
+    -fx-font-size: 11;
+    -fx-font-weight: 600;
+    -fx-text-transform: uppercase;
+}
+
+.status-row {
+    -fx-padding: 4 0 8 0;
+}
+
+.status-indicator,
+.status-text {
+    -fx-text-fill: -fx-text-secondary;
+}
+
+.status-indicator {
+    -fx-font-size: 12;
+}
+
+.status-text {
+    -fx-font-size: 13;
+    -fx-padding: 0 0 0 8;
+}
+
+.status-indicator.connected {
+    -fx-text-fill: -fx-accent-green;
+}
+
+.status-text.connected {
+    -fx-text-fill: -fx-text-primary;
+}
+
+.button-row {
+    -fx-padding: 8 0 0 0;
+}
+
+.debug-item {
+    -fx-spacing: 4;
+}
+
+.debug-label,
+.param-label {
+    -fx-text-fill: -fx-text-secondary;
+    -fx-font-size: 11;
+}
+
+.debug-textarea,
+.debug-textarea:focused,
+.debug-textarea .content,
+.debug-textarea .scroll-pane,
+.debug-textarea .scroll-pane .viewport,
+.debug-textarea .scroll-pane .content {
+    -fx-background-color: -fx-bg-dark;
+    -fx-border-color: transparent;
+}
+
+.debug-textarea {
+    -fx-text-fill: -fx-text-tertiary;
+    -fx-font-size: 10;
+    -fx-font-family: "Consolas", monospace;
+    -fx-padding: 6 8;
+    -fx-wrap-text: true;
+    -fx-pref-row-count: 2;
+    -fx-max-height: 50;
+    -fx-background-radius: 4;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-background-insets: 0;
+}
+
+.debug-textarea .content {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.param-item {
+    -fx-padding: 6 0;
+}
+
+.combo-box {
+    -fx-background-color: -fx-bg-dark;
+    -fx-border-color: -fx-border-dark;
+    -fx-border-width: 1;
+    -fx-text-fill: -fx-text-primary;
+    -fx-font-size: 12;
+    -fx-background-radius: 4;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.combo-box:hover {
+    -fx-background-color: -fx-bg-hover;
+}
+
+.combo-box:focused {
+    -fx-background-color: -fx-bg-dark;
+    -fx-border-color: -fx-accent-blue;
+}
+
+.combo-box .list-cell,
+.combo-box-popup .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-text-primary;
+}
+
+.combo-box .list-cell {
+    -fx-padding: 8 12;
+}
+
+.combo-box .list-cell:hover,
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: -fx-border-dark;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: -fx-bg-sidebar;
+}
+
+/* ========== 侧边栏按钮 ========== */
+.btn-sidebar {
+    -fx-background-color: -fx-bg-button;
+    -fx-text-fill: -fx-text-primary;
+    -fx-font-size: 13;
+    -fx-font-weight: 500;
+    -fx-cursor: hand;
+    -fx-background-radius: 6;
+    -fx-padding: 8 16;
+}
+
+.btn-sidebar:hover {
+    -fx-background-color: -fx-bg-button-hover;
+}
+
+.btn-sidebar:disabled {
+    -fx-background-color: -fx-bg-button-disabled;
+    -fx-text-fill: -fx-text-disabled;
+}
+
+.btn-sidebar-outline {
+    -fx-background-color: transparent;
+    -fx-border-color: -fx-bg-button;
+    -fx-border-width: 1;
+    -fx-text-fill: -fx-text-secondary;
+    -fx-font-size: 12;
+    -fx-font-weight: 500;
+    -fx-cursor: hand;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-padding: 8 16;
+}
+
+.btn-sidebar-outline:hover {
+    -fx-background-color: -fx-border-dark;
+    -fx-text-fill: #DDDDDD;
+}
+
+.sidebar-separator {
+    -fx-background-color: -fx-border-separator;
+    -fx-padding: 12 0;
+}
+
+.sidebar-footer {
+    -fx-padding: 16 0 0 0;
+}
+
+/* ========== 右侧主内容区 ========== */
+.main-content,
+.main-content .bottom,
+.chat-scroll,
+.chat-scroll .viewport,
+.messages-container {
+    -fx-background-color: -fx-bg-primary;
+}
+
+.main-content {
+    -fx-clip: true;
+}
+
+.main-content .bottom {
+    -fx-min-height: 80;
+}
+
+.chat-scroll {
+    -fx-border-color: transparent;
+    -fx-fit-to-width: true;
+    -fx-clip: true;
+}
+
+.messages-container {
+    -fx-padding: 24 32;
+    -fx-spacing: 16;
+    -fx-alignment: top-center;
+}
+
+.welcome-container {
+    -fx-padding: 100 32;
+    -fx-spacing: 12;
+    -fx-alignment: center;
+}
+
+.welcome-title {
+    -fx-text-fill: -fx-text-dark;
+    -fx-font-size: 28;
+    -fx-font-weight: 700;
+}
+
+.welcome-subtitle {
+    -fx-text-fill: -fx-text-light;
+    -fx-font-size: 15;
+}
+
+/* ========== 消息气泡 ========== */
+.message-bubble {
+    -fx-padding: 12 16;
+    -fx-background-radius: 12;
+    -fx-min-width: 150;
+}
+
+.message-role {
+    -fx-font-size: 11;
+    -fx-font-weight: 600;
+    -fx-padding: 0 0 6 0;
+}
+
+.message-content {
+    -fx-font-size: 14;
+    -fx-wrap-text: true;
+    -fx-line-spacing: 4;
+    -fx-min-width: -1;
+    -fx-pref-width: -1;
+    -fx-max-width: -1;
+}
+
+.user-bubble {
+    -fx-background-color: -fx-bg-button;
+    -fx-alignment: top-right;
+}
+
+.user-bubble .message-role {
+    -fx-text-fill: -fx-text-secondary;
+}
+
+.user-bubble .message-content {
+    -fx-text-fill: -fx-text-primary;
+}
+
+.assistant-bubble {
+    -fx-background-color: -fx-bg-primary;
+    -fx-border-color: -fx-border-light;
+    -fx-border-width: 1;
+    -fx-alignment: top-left;
+}
+
+.assistant-bubble .message-role {
+    -fx-text-fill: -fx-text-medium;
+}
+
+.assistant-bubble .message-content {
+    -fx-text-fill: -fx-text-dark;
+}
+
+.system-bubble {
+    -fx-background-color: -fx-bg-light;
+    -fx-alignment: center-left;
+    -fx-padding: 6 12;
+    -fx-max-width: Infinity;
+    -fx-min-width: 0;
+    -fx-background-radius: 4;
+}
+
+.system-bubble .message-content {
+    -fx-fill: -fx-text-light;
+    -fx-font-size: 13;
+    -fx-line-spacing: 0;
+}
+
+.system-bubble-bar {
+    -fx-background-color: -fx-border-medium;
+    -fx-min-width: 3;
+    -fx-pref-width: 3;
+    -fx-max-width: 3;
+    -fx-min-height: 16;
+    -fx-background-radius: 1.5;
+}
+
+.streaming-indicator {
+    -fx-font-size: 12;
+    -fx-text-fill: -fx-text-hint;
+    -fx-padding: 6 0 0 0;
+    -fx-font-style: italic;
+}
+
+/* ========== 输入区域 ========== */
+.input-container {
+    -fx-background-color: -fx-bg-primary;
+    -fx-border-color: -fx-border-light;
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 16 24 20 24;
+    -fx-min-height: 80;
+    -fx-pref-height: 80;
+}
+
+.input-box {
+    -fx-spacing: 10;
+    -fx-alignment: CENTER;
+}
+
+.input-textarea,
+.input-textarea .text-input,
+.input-textarea:focused .text-input,
+.input-textarea .content,
+.input-textarea .scroll-pane .viewport,
+.input-textarea .scroll-pane .content {
+    -fx-background-color: -fx-bg-primary;
+}
+
+.input-textarea {
+    -fx-border-color: -fx-border-medium;
+    -fx-border-width: 1;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-font-size: 14;
+    -fx-padding: 10 14;
+    -fx-text-fill: -fx-text-dark;
+    -fx-prompt-text-fill: -fx-text-hint;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.input-textarea:hover {
+    -fx-border-color: #999999;
+}
+
+.input-textarea:focused {
+    -fx-border-color: -fx-bg-button;
+}
+
+.input-textarea .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.input-hint {
+    -fx-text-fill: -fx-text-disabled-light;
+    -fx-font-size: 11;
+    -fx-padding: 8 0 0 0;
+    -fx-alignment: center;
+    -fx-max-width: Infinity;
+}
+
+.btn-send {
+    -fx-background-color: -fx-bg-button;
+    -fx-text-fill: -fx-text-primary;
+    -fx-font-size: 14;
+    -fx-font-weight: 600;
+    -fx-cursor: hand;
+    -fx-background-radius: 6;
+    -fx-padding: 10 20;
+    -fx-min-width: 70;
+    -fx-pref-width: 70;
+    -fx-max-width: 70;
+    -fx-min-height: 40;
+}
+
+.btn-send:hover {
+    -fx-background-color: -fx-bg-button-hover;
+}
+
+.btn-send:pressed {
+    -fx-background-color: -fx-bg-sidebar;
+}
+
+.btn-send:disabled {
+    -fx-background-color: -fx-border-light;
+    -fx-text-fill: -fx-text-hint;
+}
+
+.btn-stop {
+    -fx-background-color: -fx-bg-primary;
+    -fx-border-color: -fx-border-light;
+    -fx-border-width: 1;
+    -fx-text-fill: -fx-text-disabled;
+    -fx-font-size: 13;
+    -fx-font-weight: 500;
+    -fx-cursor: hand;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-padding: 10 16;
+    -fx-min-width: 60;
+    -fx-min-height: 40;
+}
+
+.btn-stop:hover {
+    -fx-background-color: -fx-bg-light;
+    -fx-border-color: -fx-border-medium;
+}
+
+.btn-stop:pressed {
+    -fx-background-color: -fx-bg-lighter;
+}
+
+.btn-stop:disabled {
+    -fx-background-color: -fx-bg-light;
+    -fx-text-fill: -fx-text-disabled-light;
+    -fx-border-color: -fx-border-light;
+}
+
+/* ========== 滚动条样式 ========== */
+.scroll-bar:vertical,
+.scroll-bar:horizontal {
+    -fx-background-color: transparent;
+    -fx-padding: 4;
+}
+
+.scroll-bar:vertical {
+    -fx-pref-width: 8;
+}
+
+.scroll-bar:horizontal {
+    -fx-pref-height: 8;
+}
+
+.scroll-bar:vertical .track,
+.scroll-bar:horizontal .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .thumb,
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: -fx-scrollbar-thumb;
+    -fx-background-radius: 4;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-min-height: 30;
+}
+
+.scroll-bar:horizontal .thumb {
+    -fx-min-width: 30;
+}
+
+.scroll-bar:vertical .thumb:hover,
+.scroll-bar:horizontal .thumb:hover {
+    -fx-background-color: -fx-scrollbar-thumb-hover;
+}
+
+.scroll-bar:vertical .thumb:pressed {
+    -fx-background-color: -fx-scrollbar-thumb-pressed;
+}
+
+.left ScrollPane .scroll-bar:vertical {
+    -fx-pref-width: 8;
+}
+
+.left ScrollPane .scroll-bar:vertical .thumb {
+    -fx-background-color: -fx-scrollbar-sidebar-thumb;
+}
+
+.left ScrollPane .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: -fx-scrollbar-sidebar-thumb-hover;
+}
+
+/* ========== 其他控件 ========== */
+.separator {
+    -fx-background-color: transparent;
+}
+
+.tooltip {
+    -fx-background-color: -fx-bg-button;
+    -fx-text-fill: -fx-text-primary;
+    -fx-font-size: 12;
+    -fx-padding: 6 10;
+    -fx-background-radius: 4;
+}

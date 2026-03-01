@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<!-- 根容器：分栏布局 -->
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.brgroup.cybotstar.javafx.ChatController"
+            styleClass="root">
+
+    <!-- 左侧边栏：调试信息 -->
+    <left>
+        <ScrollPane fitToWidth="true" fitToHeight="true" vbarPolicy="AS_NEEDED" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308">
+            <VBox styleClass="sidebar" VBox.vgrow="ALWAYS">
+                <children>
+                <!-- 应用标题 -->
+                <HBox alignment="CENTER_LEFT" styleClass="sidebar-header">
+                    <Label text="CybotStar" styleClass="sidebar-title"/>
+                </HBox>
+
+                <!-- 连接状态 -->
+                <VBox styleClass="debug-section">
+                    <Label text="连接状态" styleClass="debug-section-title"/>
+                    <HBox alignment="CENTER_LEFT" styleClass="status-row">
+                        <Label text="●" fx:id="connectionIndicator" styleClass="status-indicator"/>
+                        <Label text="未连接" fx:id="connectionStatus" styleClass="status-text"/>
+                    </HBox>
+                    <HBox spacing="8" styleClass="button-row">
+                        <HBox spacing="8" HBox.hgrow="ALWAYS">
+                            <Button fx:id="btnConnect" text="连接" onAction="#onConnectClick" styleClass="btn-sidebar" HBox.hgrow="ALWAYS"/>
+                            <Button fx:id="btnDisconnect" text="断开" onAction="#onDisconnectClick" disable="true" styleClass="btn-sidebar" HBox.hgrow="ALWAYS"/>
+                        </HBox>
+                        <Button text="清空对话" onAction="#onClearClick" styleClass="btn-sidebar-outline"/>
+                    </HBox>
+                </VBox>
+
+                <!-- 分割线 -->
+                <Separator styleClass="sidebar-separator"/>
+
+                <!-- 调试信息 -->
+                <VBox styleClass="debug-section" VBox.vgrow="ALWAYS" minHeight="0">
+                    <Label text="调试信息" styleClass="debug-section-title"/>
+
+                    <!-- 配置文件选择 -->
+                    <VBox styleClass="debug-item">
+                        <Label text="配置文件" styleClass="debug-label"/>
+                        <HBox spacing="8" alignment="CENTER_LEFT">
+                            <ComboBox fx:id="cmbConfigProfile" styleClass="combo-box" onAction="#onConfigProfileChanged" HBox.hgrow="ALWAYS"/>
+                            <Button text="保存配置" onAction="#onSaveConfigClick" styleClass="btn-sidebar"/>
+                            <Button text="管理YAML" onAction="#onManageYamlClick" styleClass="btn-sidebar-outline"/>
+                        </HBox>
+                    </VBox>
+
+                    <!-- WebSocket URL -->
+                    <VBox styleClass="debug-item">
+                        <Label text="WebSocket" styleClass="debug-label"/>
+                        <TextArea fx:id="debugWebSocket" editable="true" styleClass="debug-textarea"/>
+                    </VBox>
+
+                    <!-- Robot Key -->
+                    <VBox styleClass="debug-item">
+                        <Label text="Robot Key" styleClass="debug-label"/>
+                        <TextArea fx:id="debugRobotKey" editable="true" styleClass="debug-textarea"/>
+                    </VBox>
+
+                    <!-- Robot Token -->
+                    <VBox styleClass="debug-item">
+                        <Label text="Robot Token" styleClass="debug-label"/>
+                        <TextArea fx:id="debugRobotToken" editable="true" styleClass="debug-textarea"/>
+                    </VBox>
+
+                    <!-- Username -->
+                    <VBox styleClass="debug-item">
+                        <Label text="Username" styleClass="debug-label"/>
+                        <TextArea fx:id="debugUsername" editable="true" styleClass="debug-textarea"/>
+                    </VBox>
+                </VBox>
+
+                <!-- 分割线 -->
+                <Separator styleClass="sidebar-separator"/>
+
+                <!-- 模型参数 -->
+                <VBox styleClass="debug-section">
+                    <Label text="模型参数" styleClass="debug-section-title"/>
+
+                    <HBox spacing="8" styleClass="param-row">
+                        <VBox styleClass="param-item" HBox.hgrow="ALWAYS">
+                            <Label text="温度 (Temperature)" styleClass="param-label"/>
+                            <ComboBox fx:id="cmbTemperature" styleClass="combo-box"/>
+                        </VBox>
+
+                        <VBox styleClass="param-item" HBox.hgrow="ALWAYS">
+                            <Label text="最大 Token (Max Tokens)" styleClass="param-label"/>
+                            <ComboBox fx:id="cmbMaxTokens" styleClass="combo-box"/>
+                        </VBox>
+                    </HBox>
+                </VBox>
+                </children>
+            </VBox>
+        </ScrollPane>
+    </left>
+
+    <!-- 右侧主区域 -->
+    <center>
+        <BorderPane styleClass="main-content">
+            <!-- 聊天消息区域 -->
+            <center>
+                <ScrollPane fx:id="scrollPane" fitToWidth="true" styleClass="chat-scroll" vbarPolicy="AS_NEEDED" hbarPolicy="NEVER">
+                    <VBox fx:id="messagesContainer" styleClass="messages-container">
+                        <!-- 欢迎消息 -->
+                        <VBox alignment="CENTER" styleClass="welcome-container">
+                            <Label text="有什么可以帮您的？" styleClass="welcome-title"/>
+                            <Label text="输入问题后按 Enter 发送，Ctrl+Enter 换行" styleClass="welcome-subtitle"/>
+                        </VBox>
+                    </VBox>
+                </ScrollPane>
+            </center>
+
+            <!-- 底部输入区域 -->
+            <bottom>
+                <VBox styleClass="input-container">
+                    <HBox alignment="CENTER" styleClass="input-box">
+                        <TextArea fx:id="txtInput"
+                                  promptText="输入消息... (Enter发送, Ctrl+Enter换行)"
+                                  HBox.hgrow="ALWAYS" styleClass="input-textarea"
+                                  wrapText="true"
+                                  prefRowCount="1"
+                                  maxHeight="100"/>
+                        <Button fx:id="btnStop" text="停止" onAction="#onStopClick" disable="true" styleClass="btn-stop"/>
+                        <Button fx:id="btnSend" text="发送" onAction="#onSendClick" styleClass="btn-send" HBox.hgrow="NEVER">
+                            <tooltip>
+                                <Tooltip text="发送消息 (Enter)"/>
+                            </tooltip>
+                        </Button>
+                    </HBox>
+                    <Label text="CybotStar Agent SDK v1.0.0 | Enter发送, Ctrl+Enter换行" styleClass="input-hint"/>
+                </VBox>
+            </bottom>
+        </BorderPane>
+    </center>
+
+</BorderPane>
