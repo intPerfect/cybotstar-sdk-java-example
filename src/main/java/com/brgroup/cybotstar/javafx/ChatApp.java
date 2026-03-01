@@ -5,7 +5,7 @@ import com.brgroup.cybotstar.agent.model.ModelOptions;
 import com.brgroup.cybotstar.flow.config.FlowConfig;
 import com.brgroup.cybotstar.javafx.service.UnifiedClientService;
 import com.brgroup.cybotstar.javafx.service.UnifiedEventHandler;
-import com.brgroup.cybotstar.javafx.service.config.ConfigService;
+import com.brgroup.cybotstar.javafx.service.config.YamlConfigService;
 import com.brgroup.cybotstar.javafx.service.config.YamlConfigService;
 import com.brgroup.cybotstar.javafx.service.message.MessageService;
 import com.brgroup.cybotstar.javafx.util.YamlConfigManager;
@@ -39,7 +39,7 @@ import java.util.concurrent.TimeUnit;
 public class ChatApp extends Application {
 
     // ========== 服务层 ==========
-    private ConfigService configService;
+    private YamlConfigService configService;
     private UnifiedClientService clientService;
     private MessageService messageService;
     private UnifiedEventHandler eventHandler;

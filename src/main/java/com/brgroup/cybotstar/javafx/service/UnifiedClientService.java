@@ -4,7 +4,7 @@ import com.brgroup.cybotstar.agent.AgentClient;
 import com.brgroup.cybotstar.agent.config.AgentConfig;
 import com.brgroup.cybotstar.flow.config.FlowConfig;
 import com.brgroup.cybotstar.flow.FlowClient;
-import com.brgroup.cybotstar.javafx.service.config.ConfigService;
+import com.brgroup.cybotstar.javafx.service.config.YamlConfigService;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.CompletableFuture;
@@ -63,7 +63,7 @@ public class UnifiedClientService {
      * @param profileName   配置profile名称
      * @return UnifiedClientService实例
      */
-    public static UnifiedClientService createClient(ConfigService configService, String profileName) {
+    public static UnifiedClientService createClient(YamlConfigService configService, String profileName) {
         boolean isFlowMode = configService.isFlowMode(profileName);
 
         if (isFlowMode) {

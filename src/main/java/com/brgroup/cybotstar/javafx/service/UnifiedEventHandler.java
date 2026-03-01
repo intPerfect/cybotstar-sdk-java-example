@@ -114,9 +114,7 @@ public class UnifiedEventHandler {
      */
     private void setupAgentRawRequestHandler() {
         clientService.getAgentClient().onRawRequest((request) -> {
-            // 在控制台打印原始请求
-            System.out.print("🚀[Agent Raw Request]: ");
-            System.out.println(JSON.toJSONString(request));
+            log.debug("[Agent Raw Request]: {}", JSON.toJSONString(request));
         });
     }
 
@@ -125,9 +123,7 @@ public class UnifiedEventHandler {
      */
     private void setupAgentRawResponseHandler() {
         clientService.getAgentClient().onRawResponse((response) -> {
-            // 在控制台打印原始响应
-            System.out.print("✅️[Agent Raw Response]: ");
-            System.out.println(JSON.toJSONString(response));
+            log.debug("[Agent Raw Response]: {}", JSON.toJSONString(response));
         });
     }
 
@@ -198,8 +194,7 @@ public class UnifiedEventHandler {
     private void setupFlowStartHandler() {
         clientService.getFlowClient().onStart((FlowStartVO vo) -> {
             Platform.runLater(() -> {
-                // 在控制台打印 FlowStartVO
-                System.out.println("📋 [START] FlowStartVO: " + JSON.toJSONString(vo));
+                log.debug("[START] FlowStartVO: {}", JSON.toJSONString(vo));
             });
         });
     }
@@ -210,9 +205,7 @@ public class UnifiedEventHandler {
     private void setupFlowNodeEnterHandler() {
         clientService.getFlowClient().onNodeEnter((FlowNodeEnterVO vo) -> {
             Platform.runLater(() -> {
-                // 在控制台打印 FlowNodeEnterVO
-                System.out.println("📋 [NODE_ENTER] FlowNodeEnterVO: " + JSON.toJSONString(vo));
-                // 触发跳转回调，在GUI上显示节点跳转信息
+                log.debug("[NODE_ENTER] FlowNodeEnterVO: {}", JSON.toJSONString(vo));
                 if (onJumpCallback != null && vo.getNodeTitle() != null) {
                     onJumpCallback.accept(vo.getNodeTitle());
                 }
@@ -301,13 +294,11 @@ public class UnifiedEventHandler {
 
     /**
      * 设置Flow调试信息事件处理器
-     * 注意：只有当配置中 open-flow-debug: true 时才会生效
      */
     private void setupFlowDebugHandler() {
         clientService.getFlowClient().onDebug((FlowDebugVO vo) -> {
             Platform.runLater(() -> {
-                // 在控制台打印 FlowDebugVO
-                System.out.println("📋 [DEBUG] FlowDebugVO: " + JSON.toJSONString(vo));
+                log.debug("[DEBUG] FlowDebugVO: {}", JSON.toJSONString(vo));
             });
         });
     }
@@ -316,18 +307,12 @@ public class UnifiedEventHandler {
      * 设置Flow跳转事件处理器
      */
     private void setupFlowJumpHandler() {
-        System.out.println("🔧 [DEBUG] setupFlowJumpHandler called, onJumpCallback=" + (onJumpCallback != null ? "NOT NULL" : "NULL"));
         clientService.getFlowClient().onJump((FlowJumpVO vo) -> {
             Platform.runLater(() -> {
-                // 在控制台打印 FlowJumpVO
-                System.out.println("📋 [JUMP] FlowJumpVO: " + JSON.toJSONString(vo));
-                System.out.println("🔧 [DEBUG] onJumpCallback is " + (onJumpCallback != null ? "NOT NULL" : "NULL"));
-                // 触发跳转回调，显示提示
+                log.debug("[JUMP] FlowJumpVO: {}", JSON.toJSONString(vo));
                 if (onJumpCallback != null) {
                     String title = vo.getNodeTitle() != null ? vo.getNodeTitle() : "节点跳转";
-                    System.out.println("🔧 [DEBUG] Calling onJumpCallback with title: " + title);
                     onJumpCallback.accept(title);
-                    System.out.println("🔧 [DEBUG] onJumpCallback called successfully");
                 }
             });
         });
@@ -338,9 +323,7 @@ public class UnifiedEventHandler {
      */
     private void setupFlowRawRequestHandler() {
         clientService.getFlowClient().onRawRequest((request) -> {
-            // 在控制台打印原始请求
-            System.out.print("🚀[Flow Raw Request]: ");
-            System.out.println(JSON.toJSONString(request));
+            log.debug("[Flow Raw Request]: {}", JSON.toJSONString(request));
         });
     }
 
@@ -349,9 +332,7 @@ public class UnifiedEventHandler {
      */
     private void setupFlowRawResponseHandler() {
         clientService.getFlowClient().onRawResponse((response) -> {
-            // 在控制台打印原始响应
-            System.out.print("✅️[Flow Raw Response]: ");
-            System.out.println(JSON.toJSONString(response));
+            log.debug("[Flow Raw Response]: {}", JSON.toJSONString(response));
         });
     }
 
