@@ -4,14 +4,11 @@ import com.brgroup.cybotstar.agent.model.ModelOptions;
 import com.brgroup.cybotstar.javafx.ui.UiAdapter;
 import com.brgroup.cybotstar.javafx.ui.YamlConfigDialog;
 import com.brgroup.cybotstar.javafx.ui.MessageBubbleFactory;
-import com.brgroup.cybotstar.javafx.util.UIUtils;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.collections.FXCollections;
@@ -91,59 +88,15 @@ public class ChatController implements UiAdapter {
      */
     @FXML
     public void initialize() {
-        // 初始化温度 ComboBox
         cmbTemperature.setItems(FXCollections.observableArrayList("0.1", "0.3", "0.5", "0.7", "1.0"));
         cmbTemperature.setValue("0.7");
 
-        // 初始化 Max Tokens ComboBox
         cmbMaxTokens.setItems(FXCollections.observableArrayList(ChatConstants.MAX_TOKENS_OPTIONS));
         cmbMaxTokens.setValue("5000");
 
-        // 初始化连接状态
         updateConnectionStatus(false);
 
-        // 设置输入框的键盘事件：Enter发送，Ctrl+Enter换行
         setupInputKeyboardEvents();
-
-        // 设置滚动条滚动增量，增大鼠标滚轮一次性滚动的行数
-        setupScrollPaneIncrement();
-    }
-
-    /**
-     * 设置滚动条的滚动增量（全局配置）
-     * 通过 ScrollEvent 处理器直接控制滚动速度
-     */
-    private void setupScrollPaneIncrement() {
-        // 使用Platform.runLater确保Scene已完全初始化
-        Platform.runLater(() -> {
-            Scene scene = txtInput != null ? txtInput.getScene() : null;
-            if (scene == null || scene.getRoot() == null) {
-                return;
-            }
-
-            // 设置所有 ScrollPane 的滚动事件处理器
-            scene.getRoot().lookupAll(".scroll-pane").forEach(node -> {
-                if (node instanceof ScrollPane scrollPane) {
-                    // 捕获滚动事件，放大滚动幅度
-                    scrollPane.addEventFilter(ScrollEvent.SCROLL, event -> {
-                        if (event.getDeltaY() != 0) {
-                            // 放大滚动幅度 4 倍
-                            double deltaY = event.getDeltaY() * 4;
-                            scrollPane.setVvalue(scrollPane.getVvalue() - deltaY / scrollPane.getContent().getBoundsInLocal().getHeight());
-                            event.consume();
-                        }
-                    });
-                }
-            });
-
-            // 同时设置 ScrollBar 的增量作为备用
-            scene.getRoot().lookupAll(".scroll-bar:vertical").forEach(node -> {
-                if (node instanceof ScrollBar scrollBar) {
-                    scrollBar.setUnitIncrement(50);
-                    scrollBar.setBlockIncrement(200);
-                }
-            });
-        });
     }
 
     /**
@@ -511,7 +464,7 @@ public class ChatController implements UiAdapter {
         VBox bubble = MessageBubbleFactory.createMessageBubble(role, content, isStreaming, messagesContainer);
         HBox wrapper = MessageBubbleFactory.createMessageWrapper(role, bubble);
         messagesContainer.getChildren().add(wrapper);
-        UIUtils.scrollToBottom(scrollPane);
+        MessageBubbleFactory.scrollToBottom(scrollPane);
         return bubble;
     }
 
@@ -527,12 +480,11 @@ public class ChatController implements UiAdapter {
      */
     public void updateMessageContentSync(VBox bubble, String content, boolean isStreaming) {
         if (bubble == null) {
-            // 如果气泡为null，直接添加新消息
             addMessageSync("assistant", content, isStreaming);
             return;
         }
         MessageBubbleFactory.updateMessageContent(bubble, content, isStreaming, messagesContainer);
-        UIUtils.scrollToBottom(scrollPane);
+        MessageBubbleFactory.scrollToBottom(scrollPane);
     }
 
 

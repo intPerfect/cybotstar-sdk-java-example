@@ -1,15 +1,18 @@
 package com.brgroup.cybotstar.javafx.ui;
 
 import com.brgroup.cybotstar.javafx.ChatConstants;
+import javafx.animation.PauseTransition;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.beans.binding.Bindings;
+import javafx.util.Duration;
 
 public class MessageBubbleFactory {
 
@@ -182,5 +185,26 @@ public class MessageBubbleFactory {
             case "system" -> "ℹ️ 系统";
             default -> role;
         };
+    }
+
+    public static void scrollToBottom(ScrollPane scrollPane) {
+        if (scrollPane == null) {
+            return;
+        }
+        if (javafx.application.Platform.isFxApplicationThread()) {
+            if (scrollPane.vvalueProperty().isBound()) {
+                scrollPane.vvalueProperty().unbind();
+            }
+            PauseTransition pause = new PauseTransition(Duration.millis(ChatConstants.SCROLL_DELAY_MS));
+            pause.setOnFinished(e -> {
+                if (scrollPane != null) {
+                    scrollPane.setVvalue(1.0);
+                    scrollPane.requestLayout();
+                }
+            });
+            pause.play();
+        } else {
+            javafx.application.Platform.runLater(() -> scrollToBottom(scrollPane));
+        }
     }
 }

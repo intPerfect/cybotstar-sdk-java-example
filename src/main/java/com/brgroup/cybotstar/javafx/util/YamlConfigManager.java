@@ -297,9 +297,9 @@ public class YamlConfigManager {
         websocket.put("url", webSocketUrl);
         websocket.put("timeout", ChatConstants.WS_TIMEOUT);
         websocket.put("max-retries", ChatConstants.WS_MAX_RETRIES);
-        websocket.put("retry-interval", ChatConstants.WS_RETRY_INTERVAL);
+        websocket.put("retry-interval", 1000);
         websocket.put("auto-reconnect", ChatConstants.WS_AUTO_RECONNECT);
-        websocket.put("heartbeat-interval", ChatConstants.WS_HEARTBEAT_INTERVAL);
+        websocket.put("heartbeat-interval", 30000);
         config.put("websocket", websocket);
 
         // http
